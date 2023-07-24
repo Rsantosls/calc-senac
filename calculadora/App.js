@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState} from 'react'
+import {useState} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
 
 export default function App() {
@@ -25,7 +25,7 @@ export default function App() {
         setCurrentNumber((fistNumber - lastNumber).toString())
         return
       case 'x':
-        setCurrentNumber((fistNumber + lastNumber).toString())
+        setCurrentNumber((fistNumber * lastNumber).toString())
         return
       case '/': 
         setCurrentNumber((fistNumber - lastNumber).toString())
