@@ -34,6 +34,7 @@ export default function App() {
 
   function handleInput(buttonPressed) {
     console.log(buttonPressed) // Mostra no Console a tecla pressionada
+
     if (buttonPressed === '+' | buttonPressed === "-" | buttonPressed === "x" | buttonPressed === "/") {
       setCurrentNumber(currentNumber + " " + buttonPressed + " ")
       return
@@ -50,24 +51,58 @@ export default function App() {
         setLastNumber(currentNumber + " = ")
         calculator()
         return
-      case '+/-':
+
+      case '+/-': // Deixar o numero positivo ou negativo
+        // Primeiro há uma verificação se existe algum operador além do primeiro número
+        console.log("Verificação de inclusão de operador na string")
         if (currentNumber.includes('+') | currentNumber.includes("-") | currentNumber.includes("x") | currentNumber.includes("/")) {
-          console.log("Inclusão de operador na string")
+          // Transformar a variavel em array de string
           const splitNumbers = currentNumber.split(' ')
-          const fistNumber = parseFloat(splitNumbers[0])
-          const lastNumber = parseFloat(splitNumbers[2])
-          console.log('Array da string : ' + splitNumbers)
+          // Convertendo número em positivo ou negativo
           splitNumbers[0] *= -1
-          console.log('Primeiro numero da array: ' + splitNumbers[0])
+          // Adicionando alteração na array e transformando em uma única string
           let n = splitNumbers.join(" ")
+          // Setando no currentNumber o novo valor
           setCurrentNumber(n.toString())
-          console.log('currentNumber: ' + currentNumber)
-          console.log("Fim do if")
-          //setCurrentNumber((fistNumber * -1).toString())
+          //console.log('currentNumber: ' + currentNumber)
           return
         }
+        // Convertendo número em positivo ou negativo
         setCurrentNumber((currentNumber * -1).toString())
         console.log(currentNumber)
+        return
+
+      case '%': // Cálculo de porcentagem
+        console.log("Verificação da array")
+        // Transformar a variavel em array de string
+        const splitNumbers2 = currentNumber.split(' ')
+        console.log('Array da string : ' + splitNumbers2)
+        if (splitNumbers2[0] != null && splitNumbers2[2] != null) {
+          console.log('Inicio da operação de porcentagem')
+          // Declaração da variável com os elementos da array e converter para tipo float
+          let n1 = parseFloat(splitNumbers2[0])
+          console.log('n1: ' + n1)
+          let n2 = parseFloat(splitNumbers2[2])
+          console.log('n2: ' + n2)
+          // Calculo de porcentagem
+          let percentage = n1 * n2 / 100
+          splitNumbers2.splice(2, 1, percentage.toString())
+          let result = splitNumbers2.join(" ")
+          setCurrentNumber(result.toString())
+          //console.log(result)
+          //console.log('Array da string : ' + splitNumbers2)  
+          console.log('currentNumber: ' + currentNumber)
+          console.log("Fim da operação de porcentagem")
+          return
+
+        }
+        // Comando em caso de não ter o número no qual será a porcentagem
+        console.log('Sem numeros suficientes para o calculo')
+        let z = '0'
+        setLastNumber(currentNumber + " " + " = ") // Armazenando o lastNumber e adicionando o '%' para feedback
+        setCurrentNumber(z) // Armazenando em currentNumber resultado da operação  
+        console.log('currentNumber: ' + currentNumber)
+        console.log("Fim da operação de porcentagem")
         return
     }
 
